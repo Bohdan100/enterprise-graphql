@@ -6,6 +6,7 @@ The Enterprise is a Spring Boot application with a GraphQL schema and the Graphi
 *   **Comprehensive Data Management:** Manage departments, projects, workers, and worker details through a unified API.
 *   **GraphQL Schema for Flexible Data Retrieval:**  Leverage a GraphQL schema to retrieve precisely the data you need, in any combination, minimizing over-fetching and maximizing efficiency.
 *   **Interactive Querying with GraphiQL:**  Utilize the GraphiQL graphical tool for convenient and intuitive interaction with the GraphQL API, simplifying query creation and testing.
+*   **Modern Development with Kotlin:** Leverage Kotlin's concise syntax, null safety, and data classes to enhance code readability, reduce boilerplate, and improve maintainability.
 *   **Department Management:** Add, update, and delete departments, including their names and duties.
 *   **Project Management:** Add, update, and delete projects, specifying their names, descriptions, importance, and associated departments.
 *   **Worker Management:** Add, update, and delete workers, including their first names, last names, positions, addresses, and sex, and assign them to departments.
@@ -13,7 +14,6 @@ The Enterprise is a Spring Boot application with a GraphQL schema and the Graphi
 *   **MySQL Database Persistence:** Store and retrieve data reliably using a MySQL database.
 *   **Flyway Database Migrations:** Manage database schema changes efficiently with Flyway.
 *   **Simplified Build Process with Gradle:** Streamline the build and deployment process using Gradle.
-*   **Code Simplification with Lombok:** Reduce boilerplate code and improve readability with Lombok.
 
 ## Requirements
 The application is built using the following technologies:
@@ -23,7 +23,6 @@ The application is built using the following technologies:
 - **Java Platform (JDK)**: 21
 - **MySQL**: 8.0.40
 - **Flyway**: 11.0.1
-- **Lombok**: 1.18.36
 - **Gradle**: 8.8
   
 ## Database Setup
