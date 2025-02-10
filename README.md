@@ -42,7 +42,6 @@ Before running the application, follow these steps to set up the database:
     2. Create a new database:
        ```sql
        CREATE DATABASE IF NOT EXISTS enterprise;
-       DROP DATABASE IF EXISTS enterprise;
        ```
 
     3. Assign ownership of the database to the new user:
