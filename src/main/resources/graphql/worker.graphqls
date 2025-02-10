@@ -1,0 +1,33 @@
+type Worker {
+    id: ID!
+    firstName: String!
+    lastName: String!
+    position: String!
+    details: WorkerDetails
+    departments: [Department!]
+}
+
+type WorkerDetails {
+    workerId: ID!
+    address: String!
+    sex: String!
+}
+
+input WorkerCreateInput {
+    firstName: String!
+    lastName: String!
+    position: String!
+    address: String!
+    sex: String!
+    departmentIds: [ID!]!
+}
+
+input WorkerUpdateInput {
+    id: ID!
+    firstName: String
+    lastName: String
+    position: String
+    address: String
+    sex: String
+    departmentIds: [ID!]
+}

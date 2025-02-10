@@ -1,0 +1,22 @@
+type Project {
+    id: ID!
+    name: String!
+    description: String!
+    importance: Int!
+    department: Department!
+}
+
+input ProjectCreateInput {
+    name: String!
+    description: String!
+    importance: Int!
+    departmentId: ID!
+}
+
+input ProjectUpdateInput {
+    id: String!
+    name: String
+    description: String
+    importance: Int
+    departmentId: ID
+}

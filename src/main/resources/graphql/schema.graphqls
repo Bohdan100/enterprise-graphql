@@ -1,0 +1,24 @@
+type Query {
+    departments: [Department!]!
+    department(id: ID, partialName: String, partialDuties: String): [Department!]!
+
+    projects: [Project!]!
+    project(id: ID, partialName: String, partialDescription: String, importance: Int): [Project!]!
+
+    workers: [Worker!]!
+    worker(id: ID, partialFirstName: String, partialLastName: String, sex: String, departmentIds: [ID!], position: String): [Worker!]!
+}
+
+type Mutation {
+    addDepartment(department: DepartmentCreateInput!): Department!
+    updateDepartment(department: DepartmentUpdateInput!): Department!
+    deleteDepartment(id: ID!): String!
+
+    addProject(project: ProjectCreateInput!): Project!
+    updateProject(project: ProjectUpdateInput!): Project!
+    deleteProject(id: ID!): String!
+
+    addWorker(worker: WorkerCreateInput!): Worker!
+    updateWorker(worker: WorkerUpdateInput!): Worker!
+    deleteWorker(id: ID!): String!
+}
