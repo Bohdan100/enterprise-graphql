@@ -6,8 +6,9 @@ spring.datasource.username=adminDir
 spring.datasource.password=secret1234
 spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 
-# GraphQL Configuration
+# GraphiQL schema
 spring.graphql.graphiql.enabled=true
+spring.graphql.path=/graphql
 spring.graphql.graphiql.path=/graphiql
 
 # Flyway migrations instead of Hibernate generation
