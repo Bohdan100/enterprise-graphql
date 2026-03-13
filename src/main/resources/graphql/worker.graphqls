@@ -1,5 +1,5 @@
 type Worker {
-    id: ID!
+    id: ID
     firstName: String!
     lastName: String!
     position: String!
@@ -8,7 +8,7 @@ type Worker {
 }
 
 type WorkerDetails {
-    workerId: ID!
+    workerId: ID
     address: String!
     sex: String!
 }

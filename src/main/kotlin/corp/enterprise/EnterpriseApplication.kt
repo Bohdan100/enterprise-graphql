@@ -4,8 +4,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class GraphqlExampleApplication
+class EnterpriseApplication
 
 fun main(args: Array<String>) {
-    runApplication<GraphqlExampleApplication>(*args)
+    runApplication<EnterpriseApplication>(*args)
 }

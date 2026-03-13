@@ -16,61 +16,20 @@ The Enterprise is a Spring Boot application with a GraphQL schema and the Graphi
 *   **Simplified Build Process with Gradle:** Streamline the build and deployment process using Gradle.
 
 ## Requirements
-The application is built using the following technologies:
-- **Spring Boot**: 3.3.1
-- **Kotlin**: 1.9.24
-- **Spring Boot Starter GraphQL**: 3.3.5
-- **Java Platform (JDK)**: 21
-- **MySQL**: 8.0.40
-- **Flyway**: 11.0.1
-- **Gradle**: 8.8
-  
-## Database Setup
-Before running the application, follow these steps to set up the database:
-
-1. **Create a MySQL 8.0.40 Database**  
-   Set up a MySQL database to store the application’s data.
-
-2. **Configure Database and User**  
-   Perform the following steps in your MySQL instance to create a user and database for the application:
-
-    1. Create a new user with a password:
-       ```sql
-       CREATE USER IF NOT EXISTS 'adminDir'@'%' IDENTIFIED BY 'secret1234';
-       ```
-
-    2. Create a new database:
-       ```sql
-       CREATE DATABASE IF NOT EXISTS enterprise;
-       ```
-
-    3. Assign ownership of the database to the new user:
-       ```sql
-       GRANT ALL PRIVILEGES ON enterprise.* TO 'adminDir'@'%';
-       GRANT SUPER ON *.* TO 'adminDir'@'%';
-       ```
-       
-3. **Connect to the Database**  
-   To connect to the `enterprise` database as the `adminDir` user, use the following command in the terminal:
-   ```bash
-   mysql -u adminDir -p -D enterprise
+The following configurations are required to launch the project:
+- **Java Platform (JDK)**: 25
+- **Gradle**: 9.2.0
+- **Spring Boot**: 4.0.2
+- **Docker**: 29.1.3
+- **Kotlin**: 2.3.0
 
 ## Getting Started
 
-1. Build and Run the Application Using Gradle in Terminal:
+1. Build and Run the Application Using Docker in Terminal:
    ```bash
-   .\gradlew bootRun     (for Windows)
-   ./gradlew bootRun     (for Linux)
+   docker-compose up -d --build app
 
-2. Build and Run the Application Using a JAR File:
-   ```bash
-   .\gradlew bootJar     (for Windows)
-   ./gradlew bootJar     (for Linux)
-   
-   java -jar enterprise-graphql.jar
-    ```
-
-3. Interact with the GraphQL API using:
+2. Interact with the GraphQL API using:
     * GraphiQL: `http://localhost:8080/graphiql` (GUI interface in Browser)
     * Postman: `http://localhost:8080/graphql` (HTTPS requests)
 
