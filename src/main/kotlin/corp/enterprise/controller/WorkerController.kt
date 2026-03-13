@@ -9,10 +9,10 @@ import jakarta.validation.Valid
 import corp.enterprise.model.Worker
 import corp.enterprise.input.WorkerCreateInput
 import corp.enterprise.input.WorkerUpdateInput
-import corp.enterprise.service.WorkerService
+import corp.enterprise.service.WorkerServiceImpl
 
 @Controller
-class WorkerController(private val workerService: WorkerService) {
+class WorkerController(private val workerService: WorkerServiceImpl) {
 
     @QueryMapping
     fun workers(): List<Worker> = workerService.getAllWorkers()

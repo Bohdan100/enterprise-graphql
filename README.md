@@ -7,7 +7,8 @@ The Enterprise is a Spring Boot application with a GraphQL schema and the Graphi
 *   **GraphQL Schema for Flexible Data Retrieval:**  Leverage a GraphQL schema to retrieve precisely the data you need, in any combination, minimizing over-fetching and maximizing efficiency.
 *   **Interactive Querying with GraphiQL:**  Utilize the GraphiQL graphical tool for convenient and intuitive interaction with the GraphQL API, simplifying query creation and testing.
 *   **Modern Development with Kotlin:** Leverage Kotlin's concise syntax, null safety, and data classes to enhance code readability, reduce boilerplate, and improve maintainability.
-*   **Department Management:** Add, update, and delete departments, including their names and duties.
+*   **Containerized Deployment with Docker:** Seamlessly build and run the entire ecosystem—including the Spring Boot application and MySQL database—using Docker and Docker Compose for consistent, "one-command" environment setup.
+* **Department Management:** Add, update, and delete departments, including their names and duties.
 *   **Project Management:** Add, update, and delete projects, specifying their names, descriptions, importance, and associated departments.
 *   **Worker Management:** Add, update, and delete workers, including their first names, last names, positions, addresses, and sex, and assign them to departments.
 *   **Interconnected Data Relationships:** Maintain and query the relationships between departments, projects, and workers through interconnected tables.

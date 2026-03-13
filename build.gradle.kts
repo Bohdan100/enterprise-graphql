@@ -27,7 +27,6 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-graphql")
     // Flyway
     implementation("org.springframework.boot:spring-boot-starter-flyway")
-    implementation("org.flywaydb:flyway-core")
     implementation("org.flywaydb:flyway-mysql")
     // MySQL
     implementation("com.mysql:mysql-connector-j")
