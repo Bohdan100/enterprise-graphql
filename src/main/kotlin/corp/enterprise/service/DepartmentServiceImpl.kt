@@ -16,15 +16,19 @@ class DepartmentServiceImpl(
     private val workerRepository: WorkerRepository
 ) : DepartmentService {
 
+    @Transactional(readOnly = true)
     override fun getAllDepartments(): List<Department> = departmentRepository.findAll()
 
+    @Transactional(readOnly = true)
     override fun getDepartmentById(id: Long): Department =
         departmentRepository.findById(id)
             .orElseThrow { RuntimeException("Department not found") }
 
+    @Transactional(readOnly = true)
     override fun searchByPartialName(partialName: String): List<Department> =
         departmentRepository.findByNameContainingIgnoreCase(partialName)
 
+    @Transactional(readOnly = true)
     override fun searchByPartialDuties(partialDuties: String): List<Department> =
         departmentRepository.findByDutiesContainingIgnoreCase(partialDuties)
 
@@ -50,7 +54,4 @@ class DepartmentServiceImpl(
         if (!departmentRepository.existsById(id)) throw RuntimeException("Department not found")
         departmentRepository.deleteById(id)
     }
-
-    fun getWorkerCount(departmentId: Long): Int =
-        workerRepository.findByDepartments_IdIn(listOf(departmentId)).size
 }

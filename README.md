@@ -5,6 +5,8 @@ The Enterprise is a Spring Boot application with a GraphQL schema and the Graphi
 *   **Flexible Data Retrieval with GraphQL & GraphiQL:**  Leverage a robust GraphQL schema to retrieve precise data combinations while minimizing over-fetching, and utilize the integrated GraphiQL tool for intuitive, real-time query testing and API interaction.
 *   **High-Performance Aggregations:** Implemented complex aggregate functions (COUNT, AVG) at the database level to minimize application memory overhead.
 *   **Database Indexing:** Optimized search performance using indexes in Flyway migrations and JPA entities (search by names, positions, and departments).
+*   **Advanced Bean Lifecycle Management:** Implemented Method Injection using @Lookup to handle stateful prototype-scoped components (ExecutionTracker, WorkerValidator) within singleton services.
+*   **Advanced Transaction Management (AOP):**  Leveraged Spring AOP through tuned @Transactional configurations (used readOnly = true and implemented Propagation.REQUIRES_NEW for audit logging).
 *   **Modern Development with Kotlin:** Leverage Kotlin's concise syntax, null safety, and data classes to enhance code readability, reduce boilerplate, and improve maintainability.
 *   **Containerized Deployment with Docker:** Seamlessly build and run the entire ecosystem—including the Spring Boot application and MySQL database—using Docker and Docker Compose for consistent, "one-command" environment setup.
 *   **Full-Cycle Entity Management:** Perform complete CRUD operations (Create, Read, Update, Delete) for departments, projects, and workers, including the management of detailed attributes such as duties, importance levels, personal details, and cross-department assignments.
@@ -30,6 +32,7 @@ The following configurations are required to launch the project:
     * Postman: `http://localhost:8080/graphql` (HTTPS requests)
 
 ## Queries and Mutation examples:
+📊 Enterprise Analytics & Intelligence  
 **1. Global System Statistics (retrieve high-level enterprise metrics):**
 ```graphql
 query GetGlobalStats {
@@ -52,6 +55,7 @@ query GetDepartmentAnalytics {
 }
 ```
 
+🛠 EntityManagement  
 **3. Create New Department:**
 ```graphql
 mutation CreateDepartment {
@@ -88,6 +92,8 @@ mutation DeleteRecord {
   deleteProject(id: "4") # Replace "4" with the actual ID
 }
 ```
+
+🔍 Workforce Search & Details  
 **6. Advanced Worker Search (Filter by Name, Position, or Sex):**
 ```graphql
 query SearchWorkforce {
@@ -138,6 +144,41 @@ query GetDepartmentDetails {
       lastName
       position
     }
+  }
+}
+```
+
+🛡 Monitoring & Error Handling (Audit & Validation)  
+**9. System Audit Trail:**
+```graphql
+query GetAuditTrail {
+  auditLogs {
+    id
+    operation    # e.g., CREATE_PROJECT_ATTEMPT, DELETE_PROJECT_FAILURE
+    details      # Description or error stack trace
+    timestamp    # Event occurrence time
+  }
+}
+```
+**10. Test Entity Not Found (NOT_FOUND, triggers a RuntimeException handled by the global error resolver):**
+```graphql
+query TestNotFound {
+  department(id: "999") { # ID that does not exist
+    name
+  }
+}
+```
+**11. Test Business Validation (BAD_REQUEST, triggers a validation error (e.g., violating @Min(1) on importance field)):**
+```graphql
+mutation TestValidation {
+  addProject(project: {
+    name: "Invalid Project",
+    description: "Testing constraints",
+    importance: 0,        # Triggers @Min(1) violation
+    departmentId: "1"
+  }) {
+    id
+    importance
   }
 }
 ```

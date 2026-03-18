@@ -1,0 +1,6 @@
+type AuditLog {
+    id: ID!
+    operation: String!
+    details: String
+    timestamp: String!
+}
