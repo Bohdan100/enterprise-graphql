@@ -1,0 +1,5 @@
+type SystemStats {
+    totalWorkers: Int!
+    totalProjects: Int!
+    averageProjectImportance: Float!
+}

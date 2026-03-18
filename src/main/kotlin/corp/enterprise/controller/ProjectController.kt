@@ -6,13 +6,13 @@ import org.springframework.graphql.data.method.annotation.MutationMapping
 import org.springframework.graphql.data.method.annotation.Argument
 import jakarta.validation.Valid
 
-import corp.enterprise.service.ProjectServiceImpl
+import corp.enterprise.service.ProjectService
 import corp.enterprise.model.Project
 import corp.enterprise.input.ProjectCreateInput
 import corp.enterprise.input.ProjectUpdateInput
 
 @Controller
-class ProjectController(private val projectService: ProjectServiceImpl) {
+class ProjectController(private val projectService: ProjectService) {
     @QueryMapping
     fun projects(): List<Project> = projectService.getAllProjects()
 

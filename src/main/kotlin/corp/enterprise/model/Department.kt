@@ -3,7 +3,12 @@ package corp.enterprise.model
 import jakarta.persistence.*
 
 @Entity
-@Table(name = "department")
+@Table(
+    name = "department",
+    indexes = [
+        Index(name = "idx_department_name", columnList = "name")
+    ]
+)
 data class Department(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

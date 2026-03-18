@@ -4,6 +4,10 @@ type Department {
     duties: String!
     workers: [Worker!]
     projects: [Project!]
+
+    workerCount: Int!
+    projectCount: Int!
+    averageImportance: Float!
 }
 
 input DepartmentCreateInput {

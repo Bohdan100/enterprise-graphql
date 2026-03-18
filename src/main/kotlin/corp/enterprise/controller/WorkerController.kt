@@ -6,13 +6,13 @@ import org.springframework.graphql.data.method.annotation.MutationMapping
 import org.springframework.graphql.data.method.annotation.Argument
 import jakarta.validation.Valid
 
+import corp.enterprise.service.WorkerService
 import corp.enterprise.model.Worker
 import corp.enterprise.input.WorkerCreateInput
 import corp.enterprise.input.WorkerUpdateInput
-import corp.enterprise.service.WorkerServiceImpl
 
 @Controller
-class WorkerController(private val workerService: WorkerServiceImpl) {
+class WorkerController(private val workerService: WorkerService) {
 
     @QueryMapping
     fun workers(): List<Worker> = workerService.getAllWorkers()

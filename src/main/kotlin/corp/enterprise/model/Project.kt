@@ -4,7 +4,12 @@ import jakarta.persistence.*
 import jakarta.validation.constraints.Min
 
 @Entity
-@Table(name = "project")
+@Table(
+    name = "project",
+    indexes = [
+        Index(name = "idx_project_name", columnList = "name")
+    ]
+)
 data class Project(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

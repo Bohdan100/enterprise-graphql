@@ -6,14 +6,14 @@ import org.springframework.graphql.data.method.annotation.MutationMapping
 import org.springframework.graphql.data.method.annotation.Argument
 import jakarta.validation.Valid
 
-import corp.enterprise.service.DepartmentServiceImpl
+import corp.enterprise.service.DepartmentService
 import corp.enterprise.model.Department
 import corp.enterprise.input.DepartmentCreateInput
 import corp.enterprise.input.DepartmentUpdateInput
 
 @Controller
 class DepartmentController(
-    private val departmentService: DepartmentServiceImpl
+    private val departmentService: DepartmentService
 ) {
 
     @QueryMapping

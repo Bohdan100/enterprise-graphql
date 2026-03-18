@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 import corp.enterprise.repository.DepartmentRepository
+import corp.enterprise.repository.WorkerRepository
 import corp.enterprise.input.DepartmentCreateInput
 import corp.enterprise.input.DepartmentUpdateInput
 import corp.enterprise.model.Department
@@ -11,7 +12,8 @@ import corp.enterprise.model.Department
 @Service
 @Transactional
 class DepartmentServiceImpl(
-    private val departmentRepository: DepartmentRepository
+    private val departmentRepository: DepartmentRepository,
+    private val workerRepository: WorkerRepository
 ) : DepartmentService {
 
     override fun getAllDepartments(): List<Department> = departmentRepository.findAll()
@@ -48,4 +50,7 @@ class DepartmentServiceImpl(
         if (!departmentRepository.existsById(id)) throw RuntimeException("Department not found")
         departmentRepository.deleteById(id)
     }
+
+    fun getWorkerCount(departmentId: Long): Int =
+        workerRepository.findByDepartments_IdIn(listOf(departmentId)).size
 }

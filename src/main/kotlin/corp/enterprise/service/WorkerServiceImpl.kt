@@ -39,21 +39,17 @@ class WorkerServiceImpl(
         workerRepository.findByLastNameContainingIgnoreCase(partialLastName)
 
     override fun searchBySex(sex: String): List<Worker> {
-        if (sex == null) return workerRepository.findAll()
-
         val sexEnum = try {
             Sex.fromString(sex)
         } catch (e: IllegalArgumentException) {
             throw RuntimeException("Invalid sex value: $sex")
         }
 
-        return workerRepository.findAll().filter {
-            it.details?.sex == sexEnum
-        }
+        return workerRepository.findByDetails_Sex(sexEnum)
     }
 
     override fun createWorker(input: WorkerCreateInput): Worker {
-        val departments = departmentRepository.findAllById(input.departmentIds.map { it.toLong() })
+        val departments = departmentRepository.findAllById(input.departmentIds.map { it })
 
         val worker = Worker(
             firstName = input.firstName,
@@ -91,7 +87,7 @@ class WorkerServiceImpl(
         workerDetailsRepository.save(details)
 
         input.departmentIds?.let { ids ->
-            val newDepartments = departmentRepository.findAllById(ids.map { it.toLong() })
+            val newDepartments = departmentRepository.findAllById(ids.map { it })
             worker.departments = (worker.departments + newDepartments).distinct()
         }
 

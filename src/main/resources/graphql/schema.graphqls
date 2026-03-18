@@ -7,6 +7,8 @@ type Query {
 
     workers: [Worker!]!
     worker(id: ID, partialFirstName: String, partialLastName: String, sex: String, departmentIds: [ID!], position: String): [Worker!]!
+
+    systemStats: SystemStats!
 }
 
 type Mutation {

@@ -1,18 +1,14 @@
 # Enterprise Application
-The Enterprise is a Spring Boot application with a GraphQL schema and the GraphiQL graphical tool, providing a convenient API for managing employee and project data within the enterprise. It includes interconnected tables in a MySQL database that describe departments, projects, workers, and worker details. GraphQL's query and mutation capabilities empower clients to efficiently retrieve and modify data within these tables, requesting precisely the information they need.
-
+The Enterprise is a Spring Boot application with a GraphQL schema and the GraphiQL graphical tool, providing a convenient API for managing employee and project data within the enterprise. It includes interconnected tables in a MySQL database that describe departments, projects, workers, and worker details. GraphQL's query and mutation capabilities empower clients to efficiently retrieve and modify data within these tables, requesting precisely the information they need. The entire ecosystem is fully containerized using Docker, ensuring seamless deployment and environment consistency. With Docker Compose, the application and its MySQL database can be orchestrated and launched with a single command, eliminating "it works on my machine" issues and streamlining the development workflow.
 ## Features
-
 *   **Comprehensive Data Management:** Manage departments, projects, workers, and worker details through a unified API.
-*   **GraphQL Schema for Flexible Data Retrieval:**  Leverage a GraphQL schema to retrieve precisely the data you need, in any combination, minimizing over-fetching and maximizing efficiency.
-*   **Interactive Querying with GraphiQL:**  Utilize the GraphiQL graphical tool for convenient and intuitive interaction with the GraphQL API, simplifying query creation and testing.
+*   **Flexible Data Retrieval with GraphQL & GraphiQL:**  Leverage a robust GraphQL schema to retrieve precise data combinations while minimizing over-fetching, and utilize the integrated GraphiQL tool for intuitive, real-time query testing and API interaction.
+*   **High-Performance Aggregations:** Implemented complex aggregate functions (COUNT, AVG) at the database level to minimize application memory overhead.
+*   **Database Indexing:** Optimized search performance using indexes in Flyway migrations and JPA entities (search by names, positions, and departments).
 *   **Modern Development with Kotlin:** Leverage Kotlin's concise syntax, null safety, and data classes to enhance code readability, reduce boilerplate, and improve maintainability.
 *   **Containerized Deployment with Docker:** Seamlessly build and run the entire ecosystem—including the Spring Boot application and MySQL database—using Docker and Docker Compose for consistent, "one-command" environment setup.
-* **Department Management:** Add, update, and delete departments, including their names and duties.
-*   **Project Management:** Add, update, and delete projects, specifying their names, descriptions, importance, and associated departments.
-*   **Worker Management:** Add, update, and delete workers, including their first names, last names, positions, addresses, and sex, and assign them to departments.
-*   **Interconnected Data Relationships:** Maintain and query the relationships between departments, projects, and workers through interconnected tables.
-*   **MySQL Database Persistence:** Store and retrieve data reliably using a MySQL database.
+*   **Full-Cycle Entity Management:** Perform complete CRUD operations (Create, Read, Update, Delete) for departments, projects, and workers, including the management of detailed attributes such as duties, importance levels, personal details, and cross-department assignments.
+*   **MySQL Database Persistence:** Maintain and reliably query complex relationships between departments, projects, and workers using a MySQL database with interconnected tables for persistent storage.
 *   **Flyway Database Migrations:** Manage database schema changes efficiently with Flyway.
 *   **Simplified Build Process with Gradle:** Streamline the build and deployment process using Gradle.
 
@@ -25,7 +21,6 @@ The following configurations are required to launch the project:
 - **Kotlin**: 2.3.0
 
 ## Getting Started
-
 1. Build and Run the Application Using Docker in Terminal:
    ```bash
    docker-compose up -d --build app
@@ -35,51 +30,69 @@ The following configurations are required to launch the project:
     * Postman: `http://localhost:8080/graphql` (HTTPS requests)
 
 ## Queries and Mutation examples:
-
-**Create Department:**
+**1. Global System Statistics (retrieve high-level enterprise metrics):**
 ```graphql
-mutation {
-  addDepartment(department: { name: "Marketing", duties: "Promotion and advertising"}) {
-    id
-    name
-    duties
-    projects {
-      id
-      name
-    }
-    workers {
-      id
-      firstName
-      lastName
-    }
+query GetGlobalStats {
+  systemStats {
+    totalWorkers              # Total headcount across the enterprise
+    totalProjects             # Total number of active projects
+    averageProjectImportance  # Global average priority score
   }
 }
 ```
-**Update Project:**
+**2. Department Intelligence (Per-Department Analytics):**
 ```graphql
-mutation {
-  updateProject(project: { id: "3", name: "Updated Project Name", description: "Updated Description", importance: 4 }) { # Replace with actual values, id is required
+query GetDepartmentAnalytics {
+  departments {
+    name
+    workerCount       # Real-time worker count per department
+    projectCount      # Number of projects assigned to this department
+    averageImportance # Average importance of projects within this department
+  }
+}
+```
+
+**3. Create New Department:**
+```graphql
+mutation CreateDepartment {
+  addDepartment(department: { 
+    name: "Marketing", 
+    duties: "Promotion and strategic advertising" 
+  }) {
     id
     name
-    description
+    duties
+  }
+}
+```
+**4. Update Existing Project:**
+```graphql
+mutation UpdateProjectDetails {
+  updateProject(project: { 
+    id: "3", 
+    name: "Enterprise Link V2", 
+    importance: 9 
+  }) {
+    id
+    name
     importance
     department {
-      id
       name
     }
   }
 }
 ```
-**Delete Project:**
+**5. Data Deletion (Project/Department):**
 ```graphql
-mutation {
-  deleteProject(id: "9") # Replace "9" with the actual ID
+mutation DeleteRecord {
+  deleteProject(id: "4") # Replace "4" with the actual ID
 }
 ```
-**Get All Workers:**
+**6. Advanced Worker Search (Filter by Name, Position, or Sex):**
 ```graphql
-query {
-  workers {
+query SearchWorkforce {
+  # Example: Search by position or partial name
+  worker(position: "Developer", partialFirstName: "Emily") {
     id
     firstName
     lastName
@@ -89,65 +102,41 @@ query {
       sex
     }
     departments {
-      id
+      name
+      workerCount
+    }
+  }
+}
+```
+**7. Retrieve All Personnel Records:**
+```graphql
+query GetAllWorkers {
+  workers {
+    id
+    lastName
+    position
+    details {
+      address
+    }
+    departments {
       name
     }
   }
 }
 ```
-**Get Department by ID:**
+**8. Get Department Deep-Dive by ID:**
 ```graphql
-query {
-  department(id: "1") { # Replace "1" with the actual ID
-    id
+query GetDepartmentDetails {
+  department(id: "1") {
     name
     duties
     projects {
-      id
       name
+      importance
     }
     workers {
-      id
-      firstName
       lastName
-    }
-  }
-}
-```
-**Get Worker by FirstName:**
-```graphql
-query {
-  worker(partialFirstName: "Emily") {
-    id
-    firstName
-    lastName
-    position
-    details {
-      address
-      sex
-    }
-    departments {
-      id
-      name
-    }
-  }
-}
-```
-**Get Worker by Position:**
-```graphql
-query {
-  worker(position: "Developer") {
-    id
-    firstName
-    lastName
-    position
-    details {
-      address
-      sex
-    }
-    departments {
-      id
-      name
+      position
     }
   }
 }
