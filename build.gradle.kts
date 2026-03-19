@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "corp.enterprise"
-version = "4.0.2"
+version = "1.0.0"
 
 java {
     toolchain {
