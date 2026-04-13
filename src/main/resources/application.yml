@@ -44,3 +44,6 @@ logging:
     org.hibernate.SQL: DEBUG
     org.hibernate.type.descriptor.sql: TRACE
     org.springframework.boot.autoconfigure.flyway: DEBUG
+  # SQL debug and logging
+  file:
+    name: logs/application.log
